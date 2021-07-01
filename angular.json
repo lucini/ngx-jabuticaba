@@ -1,0 +1,155 @@
+{
+  "version": 1,
+  "projects": {
+    "ngx-jabuticaba-docs": {
+      "projectType": "application",
+      "root": "apps/ngx-jabuticaba-docs",
+      "sourceRoot": "apps/ngx-jabuticaba-docs/src",
+      "prefix": "lucini",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/ngx-jabuticaba-docs",
+            "index": "apps/ngx-jabuticaba-docs/src/index.html",
+            "main": "apps/ngx-jabuticaba-docs/src/main.ts",
+            "polyfills": "apps/ngx-jabuticaba-docs/src/polyfills.ts",
+            "tsConfig": "apps/ngx-jabuticaba-docs/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/ngx-jabuticaba-docs/src/favicon.ico",
+              "apps/ngx-jabuticaba-docs/src/assets"
+            ],
+            "styles": ["apps/ngx-jabuticaba-docs/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/ngx-jabuticaba-docs/src/environments/environment.ts",
+                  "with": "apps/ngx-jabuticaba-docs/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "ngx-jabuticaba-docs:build:production"
+            },
+            "development": {
+              "browserTarget": "ngx-jabuticaba-docs:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ngx-jabuticaba-docs:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/ngx-jabuticaba-docs/src/**/*.ts",
+              "apps/ngx-jabuticaba-docs/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/ngx-jabuticaba-docs"],
+          "options": {
+            "jestConfig": "apps/ngx-jabuticaba-docs/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "ngx-jabuticaba-docs-e2e": {
+      "root": "apps/ngx-jabuticaba-docs-e2e",
+      "sourceRoot": "apps/ngx-jabuticaba-docs-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/ngx-jabuticaba-docs-e2e/cypress.json",
+            "tsConfig": "apps/ngx-jabuticaba-docs-e2e/tsconfig.e2e.json",
+            "devServerTarget": "ngx-jabuticaba-docs:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ngx-jabuticaba-docs:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/ngx-jabuticaba-docs-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "defaultProject": "ngx-jabuticaba-docs"
+}
