@@ -27,6 +27,9 @@
     ]
   },
   "projects": {
+    "ngx-jabuticaba": {
+      "tags": []
+    },
     "ngx-jabuticaba-docs": {
       "tags": []
     },
